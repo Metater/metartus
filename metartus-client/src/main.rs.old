@@ -1,0 +1,87 @@
+use eframe::{egui::{self, TextEdit, TextStyle, ScrollArea, CentralPanel, Window, WidgetText, Widget, Area, Layout}, epaint::{Rect, Rounding, Stroke, Vec2, Color32, Pos2}};
+
+fn main() {
+    println!("Hello, world!");
+
+    let options = eframe::NativeOptions::default();
+    eframe::run_native(
+        "Meta",
+        options,
+        Box::new(|_cc| Box::new(MetaApp::default())),
+    );
+}
+
+struct MetaApp {
+    text: String
+}
+
+impl Default for MetaApp {
+    fn default() -> Self {
+        Self {
+            text: "Hello, World!".to_string()
+        }
+    }
+}
+
+impl eframe::App for MetaApp {
+    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+        egui::CentralPanel::default().show(ctx, |ui| {
+            ui.heading("Hello, World!");
+            //ui.text_edit_singleline(&mut self.text);
+            //ui.text_edit_multiline(&mut "Hello, World!".to_string());
+            //ui.add(TextEdit::multiline(&mut "Hello, World!".to_string()).font(TextStyle::Heading));
+            ui.columns(1, |ui| {
+                ui[0].push_id("column_0", |ui| {
+                    ScrollArea::vertical().stick_to_bottom(true).show(ui, |ui| {
+                        ui.columns(3, |ui| {
+                            ui[0].push_id("column_0_text", |ui| {
+                                ui.button("Hello, World!");
+                            });
+                            ui[1].push_id("column_1_text", |ui| {
+                                ui.button("Hello, World!");
+                            });
+                            ui[2].push_id("column_2_text", |ui| {
+                                ui.button("Hello, World!");
+                            });
+                        });
+                        ui.text_edit_multiline(&mut "testing????".to_string());
+
+                        ui.columns(3, |ui| {
+                            ui[0].push_id("column_0_text", |ui| {
+                                ui.button("Hello, World!");
+                            });
+                            ui[1].push_id("column_1_text", |ui| {
+                                ui.button("Hello, World!");
+                            });
+                            ui[2].push_id("column_2_text", |ui| {
+                                ui.button("Hello, World!");
+                            });
+                        });
+                        ui.text_edit_multiline(&mut "testing????".to_string());
+
+                        
+                        ui.label("");
+                        ui.text_edit_multiline(&mut self.text);
+                    });
+                    //ui.label(format!("{:?}", scroll_area.inner.inner_rect));
+                });
+                /*
+                ui[1].push_id("column_1", |ui| {
+
+                });
+                 */
+            });
+            /*
+            Area::new("Test Area").show(ctx, |ui| {
+                ui.painter().rect_filled(Rect::, rounding, fill_color)
+            });
+             */
+            // add_sized: (ui.available_size() - Vec2::new(0, 100)).max(Vec2::ZERO)
+            /*
+            ui.add_visible_ui(true, |ui| {
+                ui.painter().rect_filled(Rect::everything_below(300f32), ui.visuals().window_rounding, Color32::GRAY);
+            });
+             */
+        });
+    }
+}
